@@ -1,13 +1,14 @@
 const axios = require("axios");
 const cheerio = require('cheerio');
-//http://buffstreamz.com/watch/nba-4.php
-// const bsUrl = "http://buffstreamz.com/embed/nba-4.php";
 async function getScript(bsUrl) {
     try {
         const response = await axios.get(bsUrl);
         // console.log(response.data);
         const $ = cheerio.load(response.data);
-        const playerUrl = $('iframe').attr('src');
+        let playerUrl = $('iframe').attr('src');
+        if (playerUrl.startsWith('http') 　!= true) {
+            playerUrl = 'http://' + playerUrl;
+        }
         console.log(playerUrl);
         const playerResponse = await axios.get(playerUrl, {
             'headers': {
@@ -27,4 +28,4 @@ async function getScript(bsUrl) {
     }
 }
 exports.getStream = getScript;
-// getScript();
+// getScript('http://buffstreamz.com/embed/nba-5.php');

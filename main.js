@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
-
+const buffstreamzStreamer = require('./getBuffstreamz');
 async function run() {
     const browser = await puppeteer.launch({
-        headless: false
+        headless: true
     });
     const page = await browser.newPage();
     await page.goto('https://www.reddit.com/r/nbastreams/');
@@ -61,6 +61,12 @@ async function run() {
             return urls.map(link => link.href);
         }, URL_TABLE_SELECTOR);
         console.log("links", streamer_links);
+        streamer_links.forEach(element => {
+            if(element.match('buffstreamz') != null) {
+                buffstreamzStreamer.getStream(element.replace('watch','embed'));
+            }
+            
+        });
         // if (streamer_links[0]) {
         //     const embed_player_url = streamer_links[0].replace('watch', 'embed');
         //     console.log('going to player ', embed_player_url);
