@@ -54,7 +54,6 @@ async function run() {
         // await page.waitForNavigation();
         // let URL_TABLE_SELECTOR = '#siteTable' + item.id + ' > div:nth-child(1) > div:nth-child(2) > form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a';
         let URL_TABLE_SELECTOR = 'table>tbody>tr>td>a';
-        
         const streamer_links = await page.evaluate((sel) => {
             const urllist = document.querySelectorAll(sel);
             const urls = [...urllist];
